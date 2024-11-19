@@ -3,7 +3,7 @@ import "../App.css";
 function Footer() {
   return (
     <footer>
-      <p>F© 2024 Company, Inc.</p>
+      <p>Fl© 2024 Company, Inc.</p>
     </footer>
   );
 }
