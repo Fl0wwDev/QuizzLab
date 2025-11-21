@@ -12,12 +12,31 @@ export async function GET() {
       data_source_id: "2b171c84-d568-8068-aec5-000b8e77de73",
     });
 
-    //maping
-    const mesDonnees = response.results.map((page: any) => ({
-      nom: page.properties["Nom"]?.title?.[0]?.plain_text ?? "",
-      definition: page.properties["Definition"]?.rich_text?.[0]?.plain_text ?? ""
-    }));
+  //mapping
+  const mesDonnees = response.results.map((page: any) => {
+    const objetNettoye: any = {
+      id: page.id,
+    };
+    const props = page.properties;
+    Object.keys(props).forEach((nomDeLaColonne) => {
+      const laPropriete = props[nomDeLaColonne];
+      console.log(laPropriete);
+      switch (laPropriete.type) {
+        case "title":
+          objetNettoye[nomDeLaColonne] = laPropriete.title?.[0]?.plain_text ?? "";
+          break;
+          
+        case "rich_text":
+          objetNettoye[nomDeLaColonne] = laPropriete.rich_text?.[0]?.plain_text ?? "";
+          break;
+          
+        default:
+          objetNettoye[nomDeLaColonne] = null;
+      }
+    });
 
+    return objetNettoye;
+  });
     return NextResponse.json({ data: mesDonnees });
     
   } catch (error) {
