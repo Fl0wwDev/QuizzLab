@@ -20,7 +20,6 @@ export async function GET() {
     const props = page.properties;
     Object.keys(props).forEach((nomDeLaColonne) => {
       const laPropriete = props[nomDeLaColonne];
-      console.log(laPropriete.rich_text?.[0]?.plain_text);
       switch (laPropriete.type) {
         case "title":
           objetNettoye[nomDeLaColonne] = laPropriete.title?.[0]?.plain_text ?? "";
