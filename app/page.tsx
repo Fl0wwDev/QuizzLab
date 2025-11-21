@@ -37,12 +37,14 @@ export default function Home() {
   function randomQuestion() {
     if (data.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * data.length);
+    console.log(data[randomIndex]); 
     return data[randomIndex];
   }
 
   
   return (
     <>
+      <p>{randomQuestion()?.definition}</p>
       <TypographyH3>{randomQuestion()?.nom}</TypographyH3>
       <Input placeholder="Réponse"></Input>
     </>
