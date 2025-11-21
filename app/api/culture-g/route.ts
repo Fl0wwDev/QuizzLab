@@ -14,10 +14,9 @@ export async function GET() {
 
   //mapping
   const mesDonnees = response.results.map((page: any) => {
-    const objetNettoye: any = {
-      id: page.id,
-    };
+    const objetNettoye: any = {};
     const props = page.properties;
+    
     Object.keys(props).forEach((nomDeLaColonne) => {
       const laPropriete = props[nomDeLaColonne];
       switch (laPropriete.type) {
@@ -34,8 +33,12 @@ export async function GET() {
       }
     });
 
+    // Définir l'ID comme étant le nom (après avoir parcouru toutes les propriétés)
+    objetNettoye.id = objetNettoye.Nom || page.id;
+
     return objetNettoye;
   });
+  
     return NextResponse.json({ data: mesDonnees });
     
   } catch (error) {

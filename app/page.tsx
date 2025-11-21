@@ -44,7 +44,7 @@ export default function Home() {
   
   return (
     <>
-      <p>{randomQuestion()?.definition}</p>
+      <p></p>
       <TypographyH3>{randomQuestion()?.nom}</TypographyH3>
       <Input placeholder="Réponse"></Input>
     </>
