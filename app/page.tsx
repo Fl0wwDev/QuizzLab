@@ -1,12 +1,16 @@
 'use client';
 import {useState, useEffect} from "react";
 import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { TypographyH3 } from "@/src/components/ui/h3";
+
 interface Mythologie {
   id: string;
   nom: string;
   definition: string;
   nomRomain: string;
 }
+
 export default function Home() {
   const [data, setData] = useState<Mythologie[]>([]);
   useEffect(() => {
@@ -23,10 +27,25 @@ export default function Home() {
   }, []);
 
   function findCorrectAnswer(options: Mythologie[], correctId: string): string {
-    const correctOption = options.find(option => option.id === correctId);
-    return correctOption ? correctOption.nomRomain : "Réponse inconnue";
+    if (options.find(option => option.id === correctId)) {
+      return "option trouvée";
+    } else {  
+      return "Réponse inconnue";
+    }
   }
+
+  function randomQuestion() {
+    if (data.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * data.length);
+    return data[randomIndex];
+  }
+
+  
   return (
-    <p>{findCorrectAnswer(data, "2b171c84-d568-80e2-ae63-e9f62fcc82c8")}</p>
+    <>
+      <TypographyH3>{randomQuestion()?.nom}</TypographyH3>
+      <Input placeholder="Réponse"></Input>
+    </>
   );
+
 }
