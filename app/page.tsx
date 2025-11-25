@@ -18,7 +18,9 @@ export default function Home() {
       try {
       const response = await fetch('/api/culture-g');
       const json = await response.json();
+      console.log(listeNomsRomains)
       setData(json.data);
+      return(listeNomsRomains);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
       }
@@ -37,17 +39,16 @@ export default function Home() {
   function randomQuestion() {
     if (data.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * data.length);
-    console.log(data[randomIndex]); 
+    const listeNomsRomains = data.map((dieu: { nomRomain: any; }) => dieu.nomRomain);
+    console.log(listeNomsRomains);
     return data[randomIndex];
   }
-
   
   return (
     <>
-      <p></p>
+      <p>{randomQuestion()?.nom}</p>
       <TypographyH3>{randomQuestion()?.nom}</TypographyH3>
       <Input placeholder="Réponse"></Input>
     </>
   );
-
 }
