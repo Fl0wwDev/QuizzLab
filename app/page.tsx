@@ -7,7 +7,7 @@ import { TypographyH3 } from "@/src/components/ui/h3";
 interface Mythologie {
   id: string;
   nom: string;
-  definition: string;
+  Definition: string;
   nomRomain: string;
 }
 
@@ -18,9 +18,7 @@ export default function Home() {
       try {
       const response = await fetch('/api/culture-g');
       const json = await response.json();
-      console.log(listeNomsRomains)
       setData(json.data);
-      return(listeNomsRomains);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
       }
@@ -40,15 +38,17 @@ export default function Home() {
     if (data.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * data.length);
     const listeNomsRomains = data.map((dieu: { nomRomain: any; }) => dieu.nomRomain);
-    console.log(listeNomsRomains);
-    return data[randomIndex];
+    const definitionMythologie = data.map((dieu: { Definition: any; }) => dieu.Definition);
+    return definitionMythologie[randomIndex];
   }
+
+  const tamerr = (document.getElementById("input") as HTMLInputElement)?.value;
+  console.log(tamerr)
   
   return (
     <>
-      <p>{randomQuestion()?.nom}</p>
-      <TypographyH3>{randomQuestion()?.nom}</TypographyH3>
-      <Input placeholder="Réponse"></Input>
+      <p>Qui est ? : {randomQuestion()}</p>
+      <Input id="input" placeholder="Réponse" type="text"></Input>
     </>
   );
 }
